@@ -1,7 +1,8 @@
-import { Oid, Sphere, Bus } from '/lib/oidlib-dev.js'
+import { Oid, Sphere, Bus } from '@mundorum/oid/oid.js'
 import antlr4 from 'antlr4'
-import GnoLexer from '/translator/GnoLexer.js'
-import GnoParser from '/translator/GnoParser.js'
+import GnoLexer from '/src/translator/GnoLexer.js'
+import GnoParser from '/src/translator/GnoParser.js'
+import ejs from 'ejs'
 
 export class EditorPg {
   start () {
@@ -24,7 +25,31 @@ export class EditorPg {
  
     document.querySelector("#pg-render").value =
       JSON.stringify(parser.translated, null, 2)
+    document.querySelector("#pg-final").innerHTML = this._generate(parser.translated)
+    
+    this._controlSphere.publish('control/monitor',
+      { value: parser._syntaxErrors > 0
+               ? `Parser error: ${parser._syntaxErrors} error(s) found`
+               : 'Parsing successful'
+      }
+    )
   }
+
+  _generate (json) {
+const ejsTemplate = `
+<% scenes.forEach(function(scene) { %>
+  <div class="scene">
+    <h<%= scene.level || 1 %> class="scene-title level-<%= scene.level || 1 %>"><%= scene.title %></h<%= scene.level || 1 %>>
+    <% scene.content.forEach(function(item) { %>
+      <% if (item.type === 'image') { %>
+        <img src="<%= item.path %>" alt="<%= item.alt || '' %>" <% if (item.title) { %>title="<%= item.title %>"<% } %>>
+      <% } %>
+    <% }); %>
+  </div>
+<% }); %>`
+
+    return ejs.render(ejsTemplate, json)
+  } 
 
 }
 

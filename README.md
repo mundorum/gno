@@ -22,12 +22,36 @@ The most productive way I found to have the last Oid libraries updated is to clo
 git clone https://github.com/mundorum/library.git
 ~~~
 
-`/home/user/git/` is a hypothetical directory you must update to your machine.
+### -o-id Adopter
 
-Map the `lib` folder in this directory to the root of the mundorum library repository:
-
-~~ 
-ln -s /home/user/git/library/ lib
+If you are only using the -o-id library without modifying it, you can install it:
+~~~bash
+npm install @mundorum/oid
 ~~~
 
-ln -s /home/santanche/git/mundorum/library/ lib
+### Collections Adopter
+
+If you are only using the collections without modifying them, you can install them:
+~~~bash
+npm install @mundorum/collections
+~~~
+
+### -o-id / collections Developer
+
+If you are both an -o-id library developer and a collection developer, suppose you are modifying the -o-id library and you want your modifications to reflect in your collection automatically. In that case, you can emulate also the -o-id library installation as a node module straight from the `dist` of the -o-id library.
+
+There are two steps to link local Mundorum libraries in the development mode.
+
+Inside `/dist` directory of the -o-id library (e.g., `/git/mundorum/oid/dist`):
+~~~bash
+npm link
+~~~
+
+Inside `/node_modules/` directory of you collections project:
+~~~bash
+npm link @mundorum/oid @mundorum/collections
+~~~
+
+Notice that here you must specify both `@mundorum/oid` `@mundorum/collections`, since if you specify only `@mundorum/oid` it will disregard the previous `@mundorum/collections` link.
+
+This procedure mimics the -o-id library installed in the npm straight from `/git/mundorum/oid/dist`.

@@ -26,3 +26,6 @@ dist-ssr
 
 # AntLR
 .antlr
+
+/lib/foundation
+/lib/graph

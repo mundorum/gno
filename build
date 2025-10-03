@@ -1,1 +1,1 @@
-antlr4 -Dlanguage=JavaScript -o translator -Xexact-output-dir grammar/GnoLexer.g4 grammar/Gno.g4
+antlr4 -Dlanguage=JavaScript -o src/translator -Xexact-output-dir src/grammar/GnoLexer.g4 src/grammar/Gno.g4

@@ -32,5 +32,23 @@ export default class GnoListener extends antlr4.tree.ParseTreeListener {
 	}
 
 
+	// Enter a parse tree produced by GnoParser#sceneContent.
+	enterSceneContent(ctx) {
+	}
+
+	// Exit a parse tree produced by GnoParser#sceneContent.
+	exitSceneContent(ctx) {
+	}
+
+
+	// Enter a parse tree produced by GnoParser#image.
+	enterImage(ctx) {
+	}
+
+	// Exit a parse tree produced by GnoParser#image.
+	exitImage(ctx) {
+	}
+
+
 
 }

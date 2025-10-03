@@ -1,7 +1,0 @@
-TITLE=1
-ATX_START=2
-SPACE=3
-TAB=4
-NEWLINE=5
-' '=3
-'\t'=4
